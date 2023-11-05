@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Ashion Template">
+<meta name="keywords" content="Ashion, unica, creative, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Ashion | Template</title>
+
+<!-- Google Font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Cookie&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+	rel="stylesheet">
+
+<!-- Css Styles -->
+<link rel="stylesheet" href="../shop-static/css/bootstrap.min.css"
+	type="text/css">
+<link rel="stylesheet" href="../shop-static/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet" href="../shop-static/css/elegant-icons.css"
+	type="text/css">
+<link rel="stylesheet" href="../shop-static/css/jquery-ui.min.css"
+	type="text/css">
+<link rel="stylesheet" href="../shop-static/css/magnific-popup.css"
+	type="text/css">
+<link rel="stylesheet" href="../shop-static/css/owl.carousel.min.css"
+	type="text/css">
+<link rel="stylesheet" href="../shop-static/css/slicknav.min.css"
+	type="text/css">
+<link rel="stylesheet" href="../shop-static/css/style.css"
+	type="text/css">
+<link rel="stylesheet" href="../shop-static/css/newStyle.css"
+	type="text/css">
+<script src="../variable_template/variable_index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+	<div
+		th:replace="shop-template/general_layout/_header:: header_template_shop"></div>
+
+	<!-- Breadcrumb Begin -->
+	<div class="breadcrumb-option">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="breadcrumb__links">
+						<a href="./index.html"><i class="fa fa-home"></i> Trang Chủ</a> <span>Giỏ hàng</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Breadcrumb End -->
+
+	<!-- Checkout Section Begin -->
+	<section class="checkout spad">
+		<div class="container">
+			
+
+			<form  class="checkout__form"  action="#" th:action="@{/addInfoUser}" modelAttribute="employee"  method="post">
+				<div class="row">
+					<div class="col-lg-8">
+						<h5>Chi tiết hoá đơn</h5>
+						<div class="row">
+
+							<div class="col-lg-12 col-md-12 col-sm-12">
+								<div class="checkout__form__input">
+									<p>
+										Tên Người Nhận<span>*</span>
+									</p>
+									<input type="text" name="shipName">
+								</div>
+							</div>
+
+							<div class="col-lg-12">
+								<div class="checkout__form__input">
+									<p>
+										Địa Chỉ <span>*</span>
+									</p>
+									<textarea class="form-control" rows="7" name="shipAddress">
+                                    
+                                    </textarea>
+								</div>
+								<div class="checkout__form__input">
+									<p>
+										Thành Phố <span>*</span>
+									</p>
+									<select class="form-control form-control-sm" id="shipCity" name="shipCity">
+										<option value="Thành Phố Hồ Chí Minh">Thành Phố Hồ Chí Minh</option>
+									</select>
+								</div>
+								<div class="checkout__form__input">
+									<p>
+										Quận<span>*</span>
+									</p>
+									<select class="form-control form-control-sm" id="shipState"  name="shipState">
+										<option value="Gò Vấp">Gò Vấp</option>
+									</select>
+								</div>
+
+							</div>
+
+							<div class="col-lg-12 col-md-12 col-sm-12">
+								<div class="checkout__form__input">
+									<p>
+										Phí ship cơ bản <span>*</span>
+									</p>
+									<input type="text" name="shippingFee" value="23000" >
+								</div>
+							</div>
+
+							<div class="col-lg-12">
+								<div class="checkout__form__input">
+									<p>
+										Ghi Chú <span>*</span>
+									</p>
+									<input type="text"
+										placeholder="Note about your order, e.g, special noe for delivery">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="checkout__order">
+							<h5>Đơn đặt hàng của bạn</h5>
+							<div class="checkout__order__product">
+								<ul>
+									<li><span class="top__text">Sản phẩm</span> <span
+										class="top__text__right">Tổng tiền</span></li>
+									<li th:each="cart : ${cart}" class="product row" style="justify-content: space-between">
+										<h1 class="cut-short-text" th:text="${cart.productName}">01. Chain buck bag</h1> 
+										<span th:text="${#numbers.formatDecimal(cart.price, 0, 'COMMA', 0, 'POINT')} + ' ₫'">$ 300.0</span>
+									</li>
+				
+								</ul>
+							</div>
+							<div class="checkout__order__total">
+								<ul>
+									<li>Số lượng <span th:text="${cartStarts.counter}">$ 750.0</span></li>
+									<li>Phí Ship <span th:text="23000">$ 750.0</span></li>
+									<li>Tổng tiền <span
+										th:text="${#numbers.formatDecimal(cartStarts.amount, 0, 'COMMA', 0, 'POINT')} + ' ₫'">$
+											750.0</span></li>
+								</ul>
+							</div>
+							<div class="checkout__order__widget">
+							<!-- 	<label for="o-acc"> Create an acount? <input
+									type="checkbox" id="o-acc"> <span class="checkmark"></span>
+								</label> -->
+								<!-- <p>Create am acount by entering the information below. If
+									you are a returing customer login at the top of the page.</p> -->
+								<label for="check-payment"> Thanh toán bằng tiền mặt <input
+									type="radio" id="check-payment" name="paymentTypeId" value="1"> <span class="checkmark"></span>
+								</label> 
+								<label for="momo"> Thanh toán Momo <input type="radio" id="momo" name="paymentTypeId" value="2"> <span class="checkmark"></span>
+								</label>
+								<label for="paypal"> Thanh toán PAYPAL <input type="radio" id="paypal" name="paymentTypeId" value="3"> <span class="checkmark"></span>
+								</label>
+							</div>
+							<button type="submit" class="site-btn">
+								Thanh Toán
+							</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+	<!-- Checkout Section End -->
+
+	<div
+		th:replace="shop-template/general_layout/_footer:: footer_template_shop"></div>
+	<!-- Js Plugins -->
+	<script src="../shop-static/js/jquery-3.3.1.min.js"></script>
+	<script src="../shop-static/js/bootstrap.min.js"></script>
+	<script src="../shop-static/js/jquery.magnific-popup.min.js"></script>
+	<script src="../shop-static/js/jquery-ui.min.js"></script>
+	<script src="../shop-static/js/mixitup.min.js"></script>
+	<script src="../shop-static/js/jquery.countdown.min.js"></script>
+	<script src="../shop-static/js/jquery.slicknav.js"></script>
+	<script src="../shop-static/js/owl.carousel.min.js"></script>
+	<script src="../shop-static/js/jquery.nicescroll.min.js"></script>
+	<script src="../shop-static/js/main.js"></script>
+	<script src="../template-js/check_out_order/index.js"></script>
+	
+</body>
+
+</html>

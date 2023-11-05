@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>PolluxUI Admin</title>
+<!-- base:css -->
+<link rel="stylesheet"
+	href="../admin-static/vendors/typicons/typicons.css">
+<link rel="stylesheet"
+	href="../admin-static/vendors/css/vendor.bundle.base.css">
+<!-- endinject -->
+<!-- plugin css for this page -->
+<!-- End plugin css for this page -->
+<!-- inject:css -->
+<link rel="stylesheet"
+	href="../admin-static/css/vertical-layout-light/style.css">
+<link rel="stylesheet"
+	href="../admin-static/css/vertical-layout-light/newStyle.css">
+<!-- endinject -->
+<link rel="shortcut icon" href="../admin-static/images/favicon.png" />
+<script src="../variable_template/variable_index.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+.switchContainer {
+	text-align: left;
+}
+
+.switch {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	width: 60px;
+	height: 34px;
+	border-radius: 34px;
+}
+
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.switch input:checked+.slider {
+	background-color: #404660;
+	box-shadow: 4px 4px 10px 0px #404660 80;
+}
+
+.switch input:checked+.slider:before {
+	background: white;
+	transform: translateX(26px);
+}
+
+.switch .label {
+	position: absolute;
+	top: 7px;
+}
+
+.switch .label.right {
+	left: 60px;
+	margin-left: 10px;
+}
+
+.switch .slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border: 1px solid #404660;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+	border-radius: 34px;
+}
+
+.switch .slider:before:hover {
+	background-color: white;
+}
+
+.switch .slider:before {
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 3px;
+	background-color: #404660;
+	transition: 0.3s;
+	border-radius: 50%;
+}
+
+.switch.switch-success input:checked+.slider {
+	background-color: #1a7205;
+	box-shadow: 2px 2px 10px 0px #86f16d bf;
+}
+
+.switch.switch-success .slider {
+	border: 1px solid #1a7205;
+}
+
+.switch.switch-success .slider:before {
+	background-color: #1a7205;
+	box-shadow: 2px 2px 10px 0px #86f16d bf;
+}
+
+.switch.switch-default input:checked+.slider {
+	background-color: #636983;
+	box-shadow: 2px 2px 10px 0px #636983;
+}
+
+.switch.switch-default .slider {
+	border: 1px solid #636983;
+}
+
+.switch.switch-default .slider:before {
+	background-color: #636983;
+	box-shadow: 2px 2px 10px 0px #636983;
+}
+
+.switch.switch-warning input:checked+.slider {
+	background-color: #973c3c;
+	box-shadow: 2px 2px 10px 0px #ff9898;
+}
+
+.switch.switch-warning .slider {
+	border: 1px solid #973c3c;
+}
+
+.switch.switch-warning .slider:before {
+	background-color: #973c3c;
+	box-shadow: 2px 2px 10px 0px #ff9898;
+}
+
+.switch.switch-dark input:checked+.slider {
+	background-color: #505050;
+	box-shadow: 2px 2px 10px 0px #9d9d9d;
+}
+
+.switch.switch-dark .slider {
+	border: 1px solid #505050;
+}
+
+.switch.switch-dark .slider:before {
+	background-color: #505050;
+	box-shadow: 2px 2px 10px 0px #9d9d9d;
+}
+</style>
+</head>
+
+<body>
+	<div class="container-scroller">
+		<div class="container-fluid page-body-wrapper full-page-wrapper">
+			<div class="content-wrapper d-flex align-items-center auth px-0">
+				<div class="row w-100 mx-0">
+					<div class="col-lg-4 mx-auto">
+						<div class="auth-form-light text-left py-5 px-4 px-sm-5">
+							<div class="brand-logo">
+								<img src="../admin-static/images/logo-dark.svg" alt="logo">
+							</div>
+							<h4>Đăng ký tại đây ?</h4>
+							<h6 class="font-weight-light">Đăng ký thật dễ dàng. Chỉ mất
+								vài bước</h6>
+
+
+							<div class="form-group">
+								<input type="text" class="form-control form-control-lg"
+									data-validate-required id="username_register_user"
+									placeholder="Username">
+								<div class="error"></div>
+							</div>
+
+							<div class="form-group">
+								<input type="password" class="form-control form-control-lg"
+									data-validate-required id="password_register_user"
+									placeholder="Password">
+								<div class="error"></div>
+							</div>
+
+							<div class="form-group">
+								<input type="text" class="form-control form-control-lg"
+									data-validate-required id="firstname_register_user"
+									placeholder="Họ ">
+								<div class="error"></div>
+							</div>
+
+							<div class="form-group">
+								<input type="text" class="form-control form-control-lg"
+									data-validate-required id="lastname_register_user"
+									placeholder="Tên">
+								<div class="error"></div>
+							</div>
+
+							<div class="form-group">
+								<input type="text" class="form-control form-control-lg"
+									data-validate-required id="email_register_user"
+									placeholder="Email">
+								<div class="error"></div>
+							</div>
+
+							<div class="form-group">
+									<input class="form-control form-control-lg" type="date" id="birthday_register_user" name="trip-start"
+       									   value="2023-01-01" data-validate-required 
+       									   min="2023-01-01" max="2030-12-31">
+								<div class="error"></div>
+							</div>
+
+							<div class="form-group">
+								<input type="text" class="form-control form-control-lg"
+									data-validate-required id="address_register_user"
+									placeholder="Địa Chỉ">
+								<div class="error"></div>
+							</div>
+
+							<div class="form-group">
+								<select class="form-control form-control-lg"
+									id="country_register_user">
+									<option value="">Tỉnh/Thành phố</option>
+									<option value="An Giang">An Giang</option>
+									<option value="Bà Rịa-Vũng Tàu">Bà Rịa-Vũng Tàu</option>
+									<option value="Bắc Giang">Bắc Giang</option>
+									<option value="Bắc Kạn">Bắc Kạn</option>
+									<option value="Bạc Liêu">Bạc Liêu</option>
+									<option value="Bắc Ninh">Bắc Ninh</option>
+									<option value="Bến Tre">Bến Tre</option>
+									<option value="Bình Định">Bình Định</option>
+									<option value="Bình Dương">Bình Dương</option>
+									<option value="Bình Phước">Bình Phước</option>
+									<option value="Bình Thuận">Bình Thuận</option>
+									<option value="Cà Mau">Cà Mau</option>
+									<option value="Cần Thơ">Cần Thơ</option>
+									<option value="Cao Bằng">Cao Bằng</option>
+									<option value="Đà Nẵng">Đà Nẵng</option>
+									<option value="Đắk Lắk">Đắk Lắk</option>
+									<option value="Đắk Nông">Đắk Nông</option>
+									<option value="Điện Biên">Điện Biên</option>
+									<option value="Đồng Nai">Đồng Nai</option>
+									<option value="Đồng Tháp">Đồng Tháp</option>
+									<option value="Gia Lai">Gia Lai</option>
+									<option value="Hà Giang">Hà Giang</option>
+									<option value="Hà Nam">Hà Nam</option>
+									<option value="Hà Nội">Hà Nội</option>
+									<option value="Hà Tĩnh">Hà Tĩnh</option>
+									<option value="Hải Dương">Hải Dương</option>
+									<option value="Hải Phòng">Hải Phòng</option>
+									<option value="Hậu Giang">Hậu Giang</option>
+									<option value="Hòa Bình">Hòa Bình</option>
+									<option value="Hưng Yên">Hưng Yên</option>
+									<option value="Khánh Hòa">Khánh Hòa</option>
+									<option value="Kiên Giang">Kiên Giang</option>
+									<option value="Kon Tum">Kon Tum</option>
+									<option value="Lai Châu">Lai Châu</option>
+									<option value="Lâm Đồng">Lâm Đồng</option>
+									<option value="Lạng Sơn">Lạng Sơn</option>
+									<option value="Lào Cai">Lào Cai</option>
+									<option value="Long An">Long An</option>
+<option value="Nam Định">Nam Định</option>
+<option value="Nghệ An">Nghệ An</option>
+<option value="Ninh Bình">Ninh Bình</option>
+<option value="Ninh Thuận">Ninh Thuận</option>
+<option value="Phú Thọ">Phú Thọ</option>
+<option value="Phú Yên">Phú Yên</option>
+<option value="Quảng Bình">Quảng Bình</option>
+<option value="Quảng Nam">Quảng Nam</option>
+<option value="Quảng Ngãi">Quảng Ngãi</option>
+<option value="Quảng Ninh">Quảng Ninh</option>
+<option value="Quảng Trị">Quảng Trị</option>
+<option value="Sóc Trăng">Sóc Trăng</option>
+<option value="Sơn La">Sơn La</option>
+<option value="Tây Ninh">Tây Ninh</option>
+<option value="Thái Bình">Thái Bình</option>
+<option value="Thái Nguyên">Thái Nguyên</option>
+<option value="Thanh Hóa">Thanh Hóa</option>
+<option value="Thừa Thiên-Huế">Thừa Thiên-Huế</option>
+<option value="Tiền Giang">Tiền Giang</option>
+<option value="TP Hồ Chí Minh">TP Hồ Chí Minh</option>
+<option value="Trà Vinh">Trà Vinh</option>
+<option value="Tuyên Quang">Tuyên Quang</option>
+<option value="Vĩnh Long">Vĩnh Long</option>
+<option value="Vĩnh Phúc">Vĩnh Phúc</option>
+<option value="Yên Bái">Yên Bái</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<div class="gender">
+									<input type="radio" value="true" id="male" class="is_gender"
+										name="gender" checked /> <label for="male" class="radio"
+										checked>Nam</label> <input type="radio" value="false"
+										id="female" class="is_gender" name="gender" /> <label
+										for="female" class="radio">Nữ</label>
+								</div>
+							</div>
+
+							<div class="mb-4">
+								<div class="form-check">
+									<label class="form-check-label text-muted" style="margin: 0">
+										<!-- Switch container -->
+										<div class="switchContainer">
+											<label class="switch"> <input type="checkbox" checked>
+												<span class="slider round"></span> <span class="label right"
+												style="min-width: 1000px;">Tôi đồng ý với các điều
+													khoản</span>
+											</label>
+										</div>
+									</label>
+								</div>
+							</div>
+							<div class="mt-3">
+								<button
+									class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
+									onclick="registerUser()">SIGN UP</button>
+							</div>
+							<div class="text-center mt-4 font-weight-light">
+								Bạn đã có tài khoản? <a href="login" class="text-primary">Login</a>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- content-wrapper ends -->
+		</div>
+		<!-- page-body-wrapper ends -->
+	</div>
+	<!-- container-scroller -->
+	<!-- base:js -->
+	<script src="../admin-static/vendors/js/vendor.bundle.base.js"></script>
+	<!-- endinject -->
+	<!-- inject:js -->
+	<script src="../admin-static/js/off-canvas.js"></script>
+	<script src="../admin-static/js/hoverable-collapse.js"></script>
+	<script src="../admin-static/js/template.js"></script>
+	<script src="../admin-static/js/settings.js"></script>
+	<script src="../admin-static/js/todolist.js"></script>
+	<script src="../template-js/register_client/index.js"></script>
+
+	<!-- endinject -->
+</body>
+
+</html>
